@@ -1,26 +1,21 @@
 import React from 'react';
-import './Product.css';
+import './Basket.css';
 import { useStateValue } from './StateProvider';
 
-function Product({ id, title, image, price, rating }) {
+function Basket({ index, image, title, rating, price }) {
 	const [{ basket }, dispatch] = useStateValue();
-	const addToBasket = () => {
+
+	const removeFromBasket = () => {
 		// dispatch the item into the data layer
 		dispatch({
-			type: 'ADD_TO_BASKET',
-			item: {
-				index: basket?.length,
-				id: id,
-				title: title,
-				image: image,
-				price: price,
-				rating: rating,
-			},
+			type: 'REMOVE_FROM_BASKET',
+			index: index,
 		});
 	};
 	return (
-		<div className="product">
-			<div className="product__info">
+		<div className="basket">
+			<img src={image} alt=""></img>
+			<div className="basket__info">
 				<p>{title}</p>
 				<p className="product__price">
 					<small>$</small>
@@ -35,11 +30,10 @@ function Product({ id, title, image, price, rating }) {
 							</span>
 						))}
 				</div>
+				<button onClick={removeFromBasket}>Remove from Basket</button>
 			</div>
-			<img src={image} alt="product" />
-			<button onClick={addToBasket}>Add to Basket</button>
 		</div>
 	);
 }
 
-export default Product;
+export default Basket;
