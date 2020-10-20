@@ -3,6 +3,7 @@ import './Checkout.css';
 import Subtotal from './Subtotal';
 import Basket from './Basket';
 import { useStateValue } from './StateProvider';
+import CheckoutProduct from './CheckoutProduct';
 
 function Checkout() {
 	const [{ basket }, dispatch] = useStateValue();
@@ -20,8 +21,19 @@ function Checkout() {
 					<h2 className="checkout__title">Your shopping Basket</h2>
 
 					{/* BasketItem */}
+					{/* 강의 답 */}
+					{basket.map(item => (
+						<CheckoutProduct
+							id={item.id}
+							image={item.image}
+							title={item.title}
+							rating={item.rating}
+							price={item.price}
+						></CheckoutProduct>
+					))}
 				</div>
-				<div className="checkout__basket">
+				{/* 내가 작성한 답}
+				{/*<div className="checkout__basket">
 					{basket.map(item => (
 						<Basket
 							index={item.index}
@@ -31,7 +43,7 @@ function Checkout() {
 							price={item.price}
 						/>
 					))}
-				</div>
+				</div>*/}
 			</div>
 			<div className="checkout__right">
 				<Subtotal />
