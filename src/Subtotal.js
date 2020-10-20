@@ -3,6 +3,7 @@ import './Subtotal.css';
 import CurrencyFormat from 'react-currency-format';
 import Checkout from './Checkout';
 import { useStateValue } from './StateProvider';
+import { getBasketTotal } from './reducer';
 
 function Subtotal() {
 	const [{ basket }, dispatch] = useStateValue();
@@ -10,6 +11,7 @@ function Subtotal() {
 	return (
 		<div className="subtotal">
 			<CurrencyFormat
+				// 내가 작성한 방법 But, 강의에서는 reduce.js에서 reduce 함수를 사용
 				subtotal={basket.map(item => (subtotal += item.price))}
 				renderText={value => (
 					<>
@@ -23,7 +25,7 @@ function Subtotal() {
 					</>
 				)}
 				decimalScale={2}
-				value={subtotal} // Part of the homework
+				value={getBasketTotal(basket)} // Part of the homework
 				displayType={'text'}
 				thousandSeparator={true}
 				prefix={'$'}
